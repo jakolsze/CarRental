@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|c:\\users\\olsze\\documents\\projekty\\crud_mssql\\crud_mssql\\crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|solutionrelative:crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|solutionrelative:crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\Form1.cs",
+              "RelativeDocumentMoniker": "CRUD_MSSQL\\Form1.cs",
+              "ToolTip": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\Form1.cs",
+              "RelativeToolTip": "CRUD_MSSQL\\Form1.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAACMAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-17T15:10:48.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\Form1.cs",
+              "RelativeDocumentMoniker": "CRUD_MSSQL\\Form1.cs",
+              "ToolTip": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\Form1.cs [Design]",
+              "RelativeToolTip": "CRUD_MSSQL\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-17T15:07:09.436Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
