@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|solutionrelative:crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|c:\\users\\olsze\\documents\\projekty\\crud_mssql\\crud_mssql\\crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|solutionrelative:crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|solutionrelative:crud_mssql\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\crud_mssql\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{E9577F13-DE06-458B-B401-CADEC4EC4322}|CRUD_MSSQL\\CRUD_MSSQL.csproj|solutionrelative:crud_mssql\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,24 +22,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\App.config",
+              "RelativeDocumentMoniker": "CRUD_MSSQL\\App.config",
+              "ToolTip": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\App.config",
+              "RelativeToolTip": "CRUD_MSSQL\\App.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2024-06-24T20:18:42.245Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\Form1.cs",
               "RelativeDocumentMoniker": "CRUD_MSSQL\\Form1.cs",
               "ToolTip": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\Form1.cs",
               "RelativeToolTip": "CRUD_MSSQL\\Form1.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAACMAAAALAAAA",
+              "ViewState": "AQIAAO4BAAAAAAAAAAAIwP8BAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-17T15:10:48.934Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\olsze\\Documents\\Projekty\\CRUD_MSSQL\\CRUD_MSSQL\\CRUD_MSSQL\\Form1.cs",
               "RelativeDocumentMoniker": "CRUD_MSSQL\\Form1.cs",

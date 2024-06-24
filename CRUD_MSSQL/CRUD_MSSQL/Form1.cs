@@ -10,12 +10,14 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.IO;
-using System.Reflection;
+using System.Configuration;
 
 namespace CRUD_MSSQL
 {
     public partial class Form1 : Form
     {
+        string ConnectDB = "Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False"; //can be also done by ConfigurationManager.ConnectionString["ConnectDB"].ConnectionString
+
         public Form1()
         {
             InitializeComponent();
@@ -33,19 +35,16 @@ namespace CRUD_MSSQL
             dataGridViewRent.DefaultCellStyle.SelectionForeColor = dataGridViewRent.DefaultCellStyle.ForeColor;
             dataGridView1.AllowUserToAddRows = false;
             dataGridViewRent.AllowUserToAddRows = false;
-           
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.CustomFormat = "yyyy"; // This format will display only the year
-            dateTimePicker1.ShowUpDown = true;
+            dataGridViewRentByID.AllowUserToAddRows = false;
 
-
+            dtpCarYear.Format = DateTimePickerFormat.Custom;
+            dtpCarYear.CustomFormat = "yyyy"; // This format will display only the year
+            dtpCarYear.ShowUpDown = true;
         }
-
-        SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False");
-
+              
         void DataBind()
         {
-            SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False");
+            SqlConnection conn = new SqlConnection(ConnectDB);
             SqlCommand cmd = new SqlCommand("SELECT * FROM Car", conn);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -53,16 +52,51 @@ namespace CRUD_MSSQL
             dataGridView1.DataSource = dt;
 
         }
-        void DataBindRent()
+        void DataBindRent(int selector)
         {
-            SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False");
-            SqlCommand cmd = new SqlCommand("SELECT R.ID, R.Start, R.Finish, C.Brand, C.Model, C.Color, C.Plate FROM Rent AS R INNER JOIN Car AS C ON R.Car_ID = C.Id", conn);
+            string query;
+            switch (selector)
+            {
+                case 1:
+                    query = "SELECT R.ID, R.Start, R.Finish, C.Brand, C.Model, C.Color, C.Plate FROM Rent AS R INNER JOIN Car AS C ON R.Car_ID = C.Id";
+                    break;
+                case 2:
+                    query = "SELECT R.ID, R.Start, R.Finish, C.Brand, C.Model, C.Color, C.Plate FROM Rent AS R INNER JOIN Car AS C ON R.Car_ID = C.Id WHERE finish > CAST(GETDATE()-1 AS DATE)";
+                    break;
+                case 3:
+                    query = "SELECT R.ID, R.Start, R.Finish, C.Brand, C.Model, C.Color, C.Plate FROM Rent AS R INNER JOIN Car AS C ON R.Car_ID = C.Id ORDER BY Car_ID";
+                    break;
+                default:
+                    query = "SELECT DATABASE ERROR!";
+                    break;
+            }
+            SqlConnection conn = new SqlConnection(ConnectDB);
+            SqlCommand cmd = new SqlCommand(query, conn);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             dataGridViewRent.DataSource = dt;
 
         }
+        void DataBindRentByID(int ID)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectDB))
+            {
+                using (var command = new SqlCommand())
+                {
+                    conn.Open();
+                    command.Connection = conn;
+                    command.CommandText = "SELECT * FROM Rent WHERE Car_ID = @id";
+                    command.Parameters.Add("@id", SqlDbType.Int).Value = ID;
+                    command.ExecuteNonQuery();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dataGridViewRentByID.DataSource = dt;
+                }
+            }
+        }
+
         public static string HashString(string inputString)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -79,7 +113,7 @@ namespace CRUD_MSSQL
         void ShowPicture()
         {
             // Assuming 'connectionString' is your SQL Server connection string
-            using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False"))
+            using (SqlConnection conn = new SqlConnection(ConnectDB))
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand("SELECT LogoData FROM Logo WHERE LogoName=@Value", conn))
@@ -100,11 +134,11 @@ namespace CRUD_MSSQL
         private void btnLoginOK_Click(object sender, EventArgs e)
         {
             string hashedStrign = HashString(txtPassword.Text);
-            string hashedPassword = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918";
+            string hashedPassword = "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"; //admin
             if (hashedStrign == hashedPassword)
             {
                 DataBind();
-                DataBindRent();
+                DataBindRent(1);
                 ShowPicture();
                 tabControl.TabPages.Remove(Login);
                 tabControl.TabPages.Add(Display);
@@ -129,9 +163,10 @@ namespace CRUD_MSSQL
                 lblModel.Text = dataGridView1.Rows[rowindex].Cells[2].Value.ToString();
                 lblColor.Text = dataGridView1.Rows[rowindex].Cells[3].Value.ToString();
                 lblPlate.Text = dataGridView1.Rows[rowindex].Cells[4].Value.ToString();
+                lblCarYear.Text = dataGridView1.Rows[rowindex].Cells[5].Value.ToString();
 
-                lblColor.ForeColor=lblColor.BackColor = Color.FromName(lblColor.Text);
-                labelColor.Visible=true;
+                txtColorBox.BackColor = Color.FromName(lblColor.Text);
+               
                 ShowPicture(); 
                }
             
@@ -149,11 +184,6 @@ namespace CRUD_MSSQL
 
         }
 
-        private void btnUnhidePassword_Click(object sender, EventArgs e)
-        {
-            txtPassword.UseSystemPasswordChar = false;
-        }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             txtPassword.UseSystemPasswordChar = !txtPassword.UseSystemPasswordChar;
@@ -167,11 +197,14 @@ namespace CRUD_MSSQL
             tabControl.TabPages[0].Text = btnAddNew.Text;
             txtModel.Text = "";
             txtPlate.Text = "";
+            comboBrand.SelectedIndex = -1;
+            comboColor.SelectedIndex = -1;
+            dtpCarYear.Value = new DateTime(2024, 1, 1);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (lblCarId != null)
+            if (lblCarId.Text != "lblCarId")
             {
                 tabControl.TabPages.Remove(Display);
                 tabControl.TabPages.Remove(Rentals);
@@ -179,6 +212,10 @@ namespace CRUD_MSSQL
                 tabControl.TabPages[0].Text = btnEdit.Text;
                 txtModel.Text = lblModel.Text;
                 txtPlate.Text = lblPlate.Text;
+                comboBrand.SelectedIndex = comboBrandSelector(lblBrand.Text);
+                comboColor.SelectedIndex = comboColorSelector(lblColor.Text);
+                int yearFromLabel = int.Parse(lblCarYear.Text);
+                dtpCarYear.Value = new DateTime(yearFromLabel, 1, 1);
 
             }
             else MessageBox.Show("You need to choose a car", "Car Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -186,32 +223,34 @@ namespace CRUD_MSSQL
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (lblCarId != null)
-            {
-                using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False"))
+            try {
+                if (lblCarId.Text != "lblCarId")
                 {
-                    using (var command = new SqlCommand())
+                    using (SqlConnection conn = new SqlConnection(ConnectDB))
                     {
-                        conn.Open();
-                        command.Connection = conn;
-                        command.CommandText = "DELETE FROM Car WHERE id = @id";
-                        command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(lblCarId.Text);
-                        command.ExecuteNonQuery();
+                        using (var command = new SqlCommand())
+                        {
+                            conn.Open();
+                            command.Connection = conn;
+                            command.CommandText = "DELETE FROM Car WHERE id = @id";
+                            command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(lblCarId.Text);
+                            command.ExecuteNonQuery();
+                        }
+
                     }
-
+                    SelectionClear();
                 }
-                DataBind();
+                else MessageBox.Show("You need to choose a car", "Car Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            catch
+            {
+            MessageBox.Show("You cannot delete rented car", "Car Deletion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else MessageBox.Show("You need to choose a car", "Car Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             tabControl.TabPages.Remove(Functions);
             tabControl.TabPages.Add(Display);
-            comboBrand.SelectedIndex = -1;
-            comboColor.SelectedIndex = -1;
-
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -221,7 +260,7 @@ namespace CRUD_MSSQL
 
                 if (tabControl.TabPages[0].Text == "Add New")
                 {
-                    using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False"))
+                    using (SqlConnection conn = new SqlConnection(ConnectDB))
                     {
                         using (var command = new SqlCommand())
                         {
@@ -232,7 +271,7 @@ namespace CRUD_MSSQL
                             command.Parameters.Add("@model", SqlDbType.NVarChar).Value = (string)txtModel.Text;
                             command.Parameters.Add("@color", SqlDbType.NVarChar).Value = (string)comboColor.SelectedItem;
                             command.Parameters.Add("@plate", SqlDbType.NVarChar).Value = (string)txtPlate.Text;
-                            command.Parameters.Add("@year", SqlDbType.Int).Value = (int)dateTimePicker1.Value.Year;
+                            command.Parameters.Add("@year", SqlDbType.Int).Value = (int)dtpCarYear.Value.Year;
                             command.ExecuteNonQuery();
                         }
 
@@ -240,7 +279,7 @@ namespace CRUD_MSSQL
                 }
                 else if (tabControl.TabPages[0].Text == "Edit")
                 {
-                    using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False"))
+                    using (SqlConnection conn = new SqlConnection(ConnectDB))
                     {
                         using (var command = new SqlCommand())
                         {
@@ -253,7 +292,7 @@ namespace CRUD_MSSQL
                             command.Parameters.Add("@model", SqlDbType.NVarChar).Value = (string)txtModel.Text;
                             command.Parameters.Add("@color", SqlDbType.NVarChar).Value = (string)comboColor.SelectedItem;
                             command.Parameters.Add("@plate", SqlDbType.NVarChar).Value = (string)txtPlate.Text;
-                            command.Parameters.Add("@year", SqlDbType.Int).Value = (int)dateTimePicker1.Value.Year;
+                            command.Parameters.Add("@year", SqlDbType.Int).Value = (int)dtpCarYear.Value.Year;
                             command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(lblCarId.Text);
                             command.ExecuteNonQuery();
                         }
@@ -262,20 +301,22 @@ namespace CRUD_MSSQL
                 }
                 tabControl.TabPages.Remove(Functions);
                 tabControl.TabPages.Add(Display);
-                DataBind();
+                tabControl.TabPages.Add(Rentals);
+                tabControl.SelectedTab = Display;
+                SelectionClear();
             }
             else MessageBox.Show("You need to complete every field", "Field Completion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-
-
         private void button1_Click(object sender, EventArgs e)
         {
-            if (lblCarId != null)
+            if (lblCarId.Text != "lblCarId")
             {
                 tabControl.TabPages.Remove(Display);
                 tabControl.TabPages.Remove(Rentals);
                 tabControl.TabPages.Add(RentFun);
+                //DataBindRentByID();
+                DataBindRentByID(int.Parse(lblCarId.Text));
             }
         }
 
@@ -290,26 +331,32 @@ namespace CRUD_MSSQL
         {
             if (dtpStart.Value < dtpFinish.Value)
             {
-                using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False"))
+                int check = AviableCheck();
+                if (check == 0)
                 {
-
-                    using (var command = new SqlCommand())
+                    using (SqlConnection conn = new SqlConnection(ConnectDB))
                     {
-                        conn.Open();
-                        command.Connection = conn;
-                        command.CommandText = "INSERT INTO Rent VALUES (@car_id, @start, @finish)";
-                        command.Parameters.Add("@car_id", SqlDbType.Int).Value = int.Parse(lblCarId.Text);
-                        command.Parameters.Add("@start", SqlDbType.Date).Value = dtpStart.Value;
-                        command.Parameters.Add("@finish", SqlDbType.Date).Value = dtpFinish.Value;
-                        command.ExecuteNonQuery();
-                        tabControl.TabPages.Add(Display);
-                        tabControl.TabPages.Add(Rentals);
-                        tabControl.TabPages.Remove(RentFun);
-                        tabControl.SelectedTab = Rentals;
-                        DataBindRent();
-                        
+
+                        using (var command = new SqlCommand())
+                        {
+                            conn.Open();
+                            command.Connection = conn;
+                            command.CommandText = "INSERT INTO Rent VALUES (@car_id, @start, @finish)";
+                            command.Parameters.Add("@car_id", SqlDbType.Int).Value = int.Parse(lblCarId.Text);
+                            command.Parameters.Add("@start", SqlDbType.Date).Value = dtpStart.Value;
+                            command.Parameters.Add("@finish", SqlDbType.Date).Value = dtpFinish.Value;
+                            command.ExecuteNonQuery();
+                            tabControl.TabPages.Add(Display);
+                            tabControl.TabPages.Add(Rentals);
+                            tabControl.TabPages.Remove(RentFun);
+                            tabControl.SelectedTab = Rentals;
+                            AviableCheck();
+                            DataBindRent(1);
+
+                        }
                     }
                 }
+            else MessageBox.Show("The car is not aviable in the date: "+lblCheck.Text, "Rent date Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else MessageBox.Show("Rent start date cannot be after rent finish date", "Rent time Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             
@@ -317,9 +364,9 @@ namespace CRUD_MSSQL
 
         private void btnRentDelete_Click(object sender, EventArgs e)
         {
-            if (lblRentID != null)
+            if (lblRentID.Text != "lblRentID")
             {
-                using (SqlConnection conn = new SqlConnection("Data Source=.;Initial Catalog=CarsDB;Integrated Security=True;Encrypt=False"))
+                using (SqlConnection conn = new SqlConnection(ConnectDB))
                 {
                     using (var command = new SqlCommand())
                     {
@@ -331,9 +378,136 @@ namespace CRUD_MSSQL
                     }
 
                 }
-                DataBindRent();
+                lblRentID.Text = "lblRentID";
+                DataBindRent(1);
+                dataGridViewRent.ClearSelection();
             }
             else MessageBox.Show("You need to choose a rental", "Rent Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private int AviableCheck()
+        {
+            int flag = 0;
+            int flag2 = 0;
+            // Przykładowe daty pobrane z DateTimePicker
+            DateTime startDate = dtpStart.Value.Date;
+            DateTime endDate = dtpFinish.Value.Date;
+
+            // Tworzenie tablicy z datami między startDate a endDate
+            List<DateTime> dateArray = new List<DateTime>();
+            DateTime currentDate = startDate;
+            while (currentDate <= endDate)
+            {
+                dateArray.Add(currentDate);
+                currentDate = currentDate.AddDays(1);
+            }
+            foreach (DateTime date in dateArray)
+            {
+               flag = CheckDataGrid(date);
+                if (flag == 1)
+                    flag2 = 1;
+                lblCheck.Text = date.ToShortDateString();
+            }
+            return flag2;
+        }
+        private bool IsValueInDataGridView(DataGridView dataGridView, DateTime valueToCheck)
+        {
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.Equals(valueToCheck))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private int CheckDataGrid(DateTime a)
+        {
+            // Przykładowe wartości
+
+            DateTime valueToFind = a;
+            int flag = 0;
+
+            bool found = IsValueInDataGridView(dataGridViewRentByID, valueToFind);
+            if (found)
+            {
+                Console.WriteLine($"Value :{valueToFind} found.");
+                flag = 1;
+            }
+            else
+            {
+                Console.WriteLine($"Value: {valueToFind} not found");
+            }
+            Console.WriteLine($"Flag:{flag}");
+            return flag;
+        }
+
+        private int comboBrandSelector(string Selector)
+        {
+            switch(Selector)
+            {
+                case "Toyota":
+                    return 0;
+                case "Opel":
+                    return 1;
+                case "Mercedes":
+                    return 2;
+                case "Lexus":
+                    return 3;
+                case "Audi":
+                    return 4;
+                default:
+                    return -1;
+            }
+        }
+        private int comboColorSelector(string Selector)
+        {
+            switch (Selector)
+            {
+                case "Black":
+                    return 0;
+                case "White":
+                    return 1;
+                case "Silver":
+                    return 2;
+                case "Red":
+                    return 3;
+                case "Blue":
+                    return 4;
+                case "Green":
+                    return 4;
+                case "Yellow":
+                    return 4;
+                case "Beige":
+                    return 4;
+                default:
+                    return -1;
+            }
+        }
+
+        private void btnHideFinished_Click(object sender, EventArgs e)
+        {
+            DataBindRent(2);
+        }
+
+        private void btnShowFinished_Click(object sender, EventArgs e)
+        {
+            DataBindRent(1);
+        }
+        private void SelectionClear()
+        {
+            lblCarId.Text = "lblCarId";
+            DataBind();
+            dataGridView1.ClearSelection();
+        }
+
+        private void btnSortRentalByCars_Click(object sender, EventArgs e)
+        {
+            DataBindRent(3);
         }
     }
 }
