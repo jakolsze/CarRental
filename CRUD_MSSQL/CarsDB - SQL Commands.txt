@@ -1,0 +1,73 @@
+//Creating "CarsDB" database
+Create database CarsDB
+go
+use CarsDB
+go
+
+//Creating table "Car"
+create table Car
+(
+  Id int identity (1,1) primary key,
+  Brand nvarchar (20) not null,
+  Model nvarchar (20) not null,
+  Color nvarchar (20) not null,
+  Plate nvarchar (7) not null,
+  Year int not null
+  
+)
+go
+
+insert into Car values ('Toyota', 'Yaris', 'Black', 'GD9E555', 2022);
+
+insert into Car values ('Toyota', 'Corolla', 'Grey', 'GD956TP', 2008);
+
+go
+
+select * from Car;
+
+//Creating table "Rent"
+CREATE TABLE Rent (
+    ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Car_ID INT NOT NULL REFERENCES Car(Id),
+    Start DATE NOT NULL,
+    Finish DATE NOT NULL
+);
+
+
+INSERT INTO Rent (Car_ID, Start, Finish)
+VALUES (1, '2024-06-30', '2024-07-07');
+
+
+select * from Rent, Car where Rent.Car_ID = Car.Id;
+
+// Create table "logo"
+CREATE TABLE Logo
+(
+    LogoID INT PRIMARY KEY,
+    LogoName nvarchar (20),
+    LogoData VARBINARY(MAX)
+);
+
+INSERT INTO Logo (LogoID, LogoName, LogoData)
+SELECT 1, 'Toyota', BulkColumn
+FROM OPENROWSET(BULK N'C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\free_pngs\toyota.png', SINGLE_BLOB) AS Image;
+
+INSERT INTO Logo (LogoID, LogoName, LogoData)
+SELECT 2, 'Opel', BulkColumn
+FROM OPENROWSET(BULK N'C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\free_pngs\opel.png', SINGLE_BLOB) AS Image;
+
+INSERT INTO Logo (LogoID, LogoName, LogoData)
+SELECT 3, 'Mercedes', BulkColumn
+FROM OPENROWSET(BULK N'C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\free_pngs\mercedes.png', SINGLE_BLOB) AS Image;
+
+INSERT INTO Logo (LogoID, LogoName, LogoData)
+SELECT 4, 'Lexus', BulkColumn
+FROM OPENROWSET(BULK N'C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\free_pngs\lexus.png', SINGLE_BLOB) AS Image;
+
+INSERT INTO Logo (LogoID, LogoName, LogoData)
+SELECT 5, 'Audi', BulkColumn
+FROM OPENROWSET(BULK N'C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\free_pngs\audi.png', SINGLE_BLOB) AS Image;
+
+select * from Logo
+
+// picrturebox size = 20% of image -> 384, 216 px

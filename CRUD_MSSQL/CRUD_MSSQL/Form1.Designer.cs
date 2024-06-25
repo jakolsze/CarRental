@@ -48,7 +48,7 @@
             this.btnAddNew = new System.Windows.Forms.Button();
             this.lblBrand = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewCar = new System.Windows.Forms.DataGridView();
             this.Functions = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -70,7 +70,6 @@
             this.btnRentDelete = new System.Windows.Forms.Button();
             this.dataGridViewRent = new System.Windows.Forms.DataGridView();
             this.RentFun = new System.Windows.Forms.TabPage();
-            this.lblCheck = new System.Windows.Forms.Label();
             this.dataGridViewRentByID = new System.Windows.Forms.DataGridView();
             this.btnRentCancel = new System.Windows.Forms.Button();
             this.btnRentSave = new System.Windows.Forms.Button();
@@ -83,7 +82,7 @@
             this.Login.SuspendLayout();
             this.Display.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCar)).BeginInit();
             this.Functions.SuspendLayout();
             this.Rentals.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRent)).BeginInit();
@@ -169,6 +168,7 @@
             // 
             // Display
             // 
+            this.Display.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Display.Controls.Add(this.txtColorBox);
             this.Display.Controls.Add(this.lblCarYear);
             this.Display.Controls.Add(this.lblPlate);
@@ -181,7 +181,7 @@
             this.Display.Controls.Add(this.btnAddNew);
             this.Display.Controls.Add(this.lblBrand);
             this.Display.Controls.Add(this.pictureBox1);
-            this.Display.Controls.Add(this.dataGridView1);
+            this.Display.Controls.Add(this.dataGridViewCar);
             this.Display.Location = new System.Drawing.Point(4, 25);
             this.Display.Margin = new System.Windows.Forms.Padding(4);
             this.Display.Name = "Display";
@@ -189,7 +189,6 @@
             this.Display.Size = new System.Drawing.Size(1387, 495);
             this.Display.TabIndex = 1;
             this.Display.Text = "Cars Database";
-            this.Display.UseVisualStyleBackColor = true;
             // 
             // txtColorBox
             // 
@@ -319,14 +318,14 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // dataGridView1
+            // dataGridViewCar
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 22);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(807, 308);
-            this.dataGridView1.TabIndex = 1;
+            this.dataGridViewCar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCar.Location = new System.Drawing.Point(8, 22);
+            this.dataGridViewCar.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridViewCar.Name = "dataGridViewCar";
+            this.dataGridViewCar.Size = new System.Drawing.Size(807, 308);
+            this.dataGridViewCar.TabIndex = 1;
             // 
             // Functions
             // 
@@ -353,47 +352,47 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(335, 178);
+            this.label8.Location = new System.Drawing.Point(469, 206);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 16);
+            this.label8.Size = new System.Drawing.Size(39, 16);
             this.label8.TabIndex = 12;
-            this.label8.Text = "Year";
+            this.label8.Text = "Year:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(335, 148);
+            this.label7.Location = new System.Drawing.Point(469, 176);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 16);
+            this.label7.Size = new System.Drawing.Size(41, 16);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Plate";
+            this.label7.Text = "Plate:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(335, 111);
+            this.label6.Location = new System.Drawing.Point(469, 146);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(39, 16);
+            this.label6.Size = new System.Drawing.Size(42, 16);
             this.label6.TabIndex = 10;
-            this.label6.Text = "Color";
+            this.label6.Text = "Color:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(335, 76);
+            this.label5.Location = new System.Drawing.Point(469, 114);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 16);
+            this.label5.Size = new System.Drawing.Size(48, 16);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Model";
+            this.label5.Text = "Model:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(335, 39);
+            this.label4.Location = new System.Drawing.Point(469, 84);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 16);
@@ -413,7 +412,7 @@
             "Yellow",
             "Silver",
             "Beige"});
-            this.comboColor.Location = new System.Drawing.Point(424, 101);
+            this.comboColor.Location = new System.Drawing.Point(554, 138);
             this.comboColor.Margin = new System.Windows.Forms.Padding(4);
             this.comboColor.Name = "comboColor";
             this.comboColor.Size = new System.Drawing.Size(177, 24);
@@ -428,7 +427,7 @@
             "Mercedes",
             "Lexus",
             "Audi"});
-            this.comboBrand.Location = new System.Drawing.Point(424, 36);
+            this.comboBrand.Location = new System.Drawing.Point(554, 76);
             this.comboBrand.Margin = new System.Windows.Forms.Padding(4);
             this.comboBrand.Name = "comboBrand";
             this.comboBrand.Size = new System.Drawing.Size(177, 24);
@@ -436,7 +435,7 @@
             // 
             // dtpCarYear
             // 
-            this.dtpCarYear.Location = new System.Drawing.Point(424, 171);
+            this.dtpCarYear.Location = new System.Drawing.Point(554, 200);
             this.dtpCarYear.Margin = new System.Windows.Forms.Padding(4);
             this.dtpCarYear.Name = "dtpCarYear";
             this.dtpCarYear.Size = new System.Drawing.Size(177, 22);
@@ -444,7 +443,7 @@
             // 
             // txtPlate
             // 
-            this.txtPlate.Location = new System.Drawing.Point(424, 139);
+            this.txtPlate.Location = new System.Drawing.Point(554, 170);
             this.txtPlate.Margin = new System.Windows.Forms.Padding(4);
             this.txtPlate.MaxLength = 7;
             this.txtPlate.Name = "txtPlate";
@@ -453,7 +452,7 @@
             // 
             // txtModel
             // 
-            this.txtModel.Location = new System.Drawing.Point(424, 69);
+            this.txtModel.Location = new System.Drawing.Point(554, 108);
             this.txtModel.Margin = new System.Windows.Forms.Padding(4);
             this.txtModel.MaxLength = 20;
             this.txtModel.Name = "txtModel";
@@ -462,7 +461,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(557, 245);
+            this.btnCancel.Location = new System.Drawing.Point(631, 259);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 28);
@@ -473,7 +472,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(369, 245);
+            this.btnSave.Location = new System.Drawing.Point(472, 259);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 28);
@@ -564,7 +563,6 @@
             // 
             // RentFun
             // 
-            this.RentFun.Controls.Add(this.lblCheck);
             this.RentFun.Controls.Add(this.dataGridViewRentByID);
             this.RentFun.Controls.Add(this.btnRentCancel);
             this.RentFun.Controls.Add(this.btnRentSave);
@@ -579,17 +577,6 @@
             this.RentFun.TabIndex = 4;
             this.RentFun.Text = "Functions";
             this.RentFun.UseVisualStyleBackColor = true;
-            // 
-            // lblCheck
-            // 
-            this.lblCheck.AutoSize = true;
-            this.lblCheck.Location = new System.Drawing.Point(183, 303);
-            this.lblCheck.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCheck.Name = "lblCheck";
-            this.lblCheck.Size = new System.Drawing.Size(44, 16);
-            this.lblCheck.TabIndex = 7;
-            this.lblCheck.Text = "label2";
-            this.lblCheck.Visible = false;
             // 
             // dataGridViewRentByID
             // 
@@ -679,7 +666,7 @@
             this.Display.ResumeLayout(false);
             this.Display.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCar)).EndInit();
             this.Functions.ResumeLayout(false);
             this.Functions.PerformLayout();
             this.Rentals.ResumeLayout(false);
@@ -700,7 +687,7 @@
         private System.Windows.Forms.TabPage Functions;
         private System.Windows.Forms.Button btnLoginOK;
         private System.Windows.Forms.TextBox txtPassword;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewCar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lblBrand;
@@ -738,7 +725,6 @@
         private System.Windows.Forms.Label lblModel;
         private System.Windows.Forms.Label lblPlate;
         private System.Windows.Forms.DataGridView dataGridViewRentByID;
-        private System.Windows.Forms.Label lblCheck;
         private System.Windows.Forms.Label lblCarYear;
         private System.Windows.Forms.Button btnHideFinished;
         private System.Windows.Forms.Button btnShowFinished;

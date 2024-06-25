@@ -8,3 +8,7 @@ C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\obj\Debug\CRU
 C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\obj\Debug\CRUD_MSSQL.csproj.CoreCompileInputs.cache
 C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\obj\Debug\CRUD_MSSQL.exe
 C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\obj\Debug\CRUD_MSSQL.pdb
+C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\bin\Debug\CRUD_MSSQL.exe.manifest
+C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\bin\Debug\CRUD_MSSQL.application
+C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\obj\Debug\CRUD_MSSQL.exe.manifest
+C:\Users\olsze\Documents\Projekty\CRUD_MSSQL\CRUD_MSSQL\CRUD_MSSQL\obj\Debug\CRUD_MSSQL.application
